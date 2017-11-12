@@ -1,0 +1,37 @@
+{
+	"name": "material-styled-components",
+	"version": "0.0.1",
+	"description": "Styled Components that implement Google's Material Design",
+	"bugs": "https://github.com/nielsrowinbik/material-styled-components/issues",
+	"license": "MIT",
+	"author": "Niels Bik <hey@nielsbik.nl> (https://nielsbik.nl)",
+	"main": "build/index.js",
+	"repository": "nielsrowinbik/material-styled-components",
+	"scripts": {
+		"test": "eslint ./src/**",
+		"start": "babel ./src -w -d ./build",
+		"build": "babel ./src -d ./build",
+		"docs:test": "eslint ./docs/src/**"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.0",
+		"babel-loader": "^7.1.2",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-plugin-transform-react-jsx": "^6.24.1",
+		"babel-preset-env": "^1.6.1",
+		"babel-preset-react": "^6.24.1",
+		"babel-preset-stage-0": "^6.24.1",
+		"eslint": "^4.10.0",
+		"eslint-config-synacor": "^2.0.2"
+	},
+	"dependencies": {
+		"color": "^2.0.1",
+		"prop-types": "^15.6.0",
+		"react": "^16.0.0",
+		"styled-components": "^2.2.3"
+	},
+	"eslintConfig": {
+		"extends": "eslint-config-synacor"
+	}
+}
