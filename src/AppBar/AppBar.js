@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Button from '../Button';
+import MenuIcon from '../icons/MenuIcon';
 import elevation from '../mixins/elevation';
 import { font } from '../mixins/typography';
 
@@ -11,8 +13,11 @@ const Title = styled.h2`
 	display: inline-block;
 `;
 
-const AppBarComponent = ({ className, title, children }) => (
+const AppBarComponent = ({ className, title, dense, menuAction, children }) => (
 	<header className={className}>
+		{ menuAction && (
+			<Button round mini={dense} onClick={menuAction}><MenuIcon /></Button>
+		) }
 		{ title && typeof title === 'string' && <Title>{ title }</Title> }
 		{ typeof title !== 'string' && title }
 		{children}
@@ -48,8 +53,10 @@ AppBar.propTypes = {
 	fixed: PropTypes.bool,
 	title: PropTypes.oneOf([
 		PropTypes.string,
-		PropTypes.node
-	])
+		PropTypes.node,
+		PropTypes.object
+	]),
+	menuAction: PropTypes.func
 };
 
 AppBar.defaultProps = {
