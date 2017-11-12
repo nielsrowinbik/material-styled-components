@@ -8,8 +8,8 @@ import withRipple from '../decorators/withRipple';
 
 const round = css`
 	border-radius: 50%;
-	width: 56px;
-	height: 56px;
+	width: ${props => props.mini ? 40 : 56}px;
+	height: ${props => props.mini ? 40 : 56}px;
 	padding: 0;
 	
 	${props => props.raised ? raised : flat}
@@ -106,6 +106,7 @@ Button.propTypes = {
 	accent: PropTypes.bool,
 	raised: PropTypes.bool,
 	round: PropTypes.bool,
+	mini: PropTypes.bool,
 	ripple: PropTypes.bool
 };
 
