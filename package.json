@@ -1,11 +1,11 @@
 {
 	"name": "material-styled-components",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Styled Components that implement Google's Material Design",
 	"bugs": "https://github.com/nielsrowinbik/material-styled-components/issues",
 	"license": "MIT",
 	"author": "Niels Bik <hey@nielsbik.nl> (https://nielsbik.nl)",
-	"main": "build/index.js",
+	"main": "./src/index.js",
 	"repository": "nielsrowinbik/material-styled-components",
 	"scripts": {
 		"test": "eslint ./src/**",
