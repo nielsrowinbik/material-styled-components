@@ -1,15 +1,13 @@
-import { createElement } from 'react';
 import PropTypes from 'prop-types';
 import color from 'color';
 import styled, { css } from 'styled-components';
 import elevation, { elevationTransition } from '../mixins/elevation';
 import { font } from '../mixins/typography';
-import withRipple from '../decorators/withRipple';
 
 const round = css`
 	border-radius: 50%;
-	width: ${props => props.mini ? 40 : 56}px;
-	height: ${props => props.mini ? 40 : 56}px;
+	width: ${props => props.raised ? props.mini ? 40 : 56 : props.mini ? 32 : 48 }px;
+	height: ${props => props.raised ? props.mini ? 40 : 56 : props.mini ? 32 : 48 }px;
 	padding: 0;
 	
 	${props => props.raised ? raised : flat}
@@ -53,14 +51,10 @@ const flat = css`
 	}
 `;
 
-const ButtonComponent = ({ className, children, onClick, disabled, href, to }) => createElement(
-	href || to ? 'a' : 'button',
-	{ className, onClick, href, to, disabled },
-	children
-);
-
-const StyledButtonComponent = styled(ButtonComponent)`
-	display: inline-block;
+const Button = styled.button`
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	border: none;
 	outline: none;
 	background: transparent;
@@ -94,12 +88,6 @@ const StyledButtonComponent = styled(ButtonComponent)`
 
 	${props => props.round && round || regular }
 `;
-
-const Button = ({ ripple, children, ...props }) => createElement(
-	ripple ? withRipple(StyledButtonComponent) : StyledButtonComponent,
-	{ ...props },
-	children
-);
 
 Button.propTypes = {
 	primary: PropTypes.bool,
