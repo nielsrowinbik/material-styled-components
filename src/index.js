@@ -11,9 +11,13 @@ export {
 	CardMedia,
 	CardTitle
 } from './Card';
+export { default as Drawer } from './Drawer';
 export {
-	default as Drawer,
-	DrawerMenu,
-	DrawerMenuItem
-} from './Drawer';
+	default as List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	ListSubheader
+} from './List';
+export { default as Snackbar } from './Snackbar';
 export { default as ThemeProvider } from './theme/ThemeProvider';
