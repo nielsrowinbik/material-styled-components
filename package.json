@@ -1,6 +1,6 @@
 {
 	"name": "material-styled-components",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Styled Components that implement Google's Material Design",
 	"bugs": "https://github.com/nielsrowinbik/material-styled-components/issues",
 	"license": "MIT",

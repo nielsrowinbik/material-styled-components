@@ -1,14 +1,13 @@
 # Material Styled Components
 
-A set of React components that implement Google's Material Design using Styled Components.
-
-## Installation
-
-Material Styled Components is available as an [npm package](https://www.npmjs.org/package/material-styled-components).
+A set of [Styled Components](https://github.com/styled-components/styled-components) that implement Google's Material Design.
 
 ```sh
 $ npm install material-styled-components
+& yarn add material-styled-components
 ```
+
+[![npm](https://img.shields.io/npm/v/material-styled-components.svg)](https://www.npmjs.com/package/material-styled-components) [![Build status](https://travis-ci.org/nielsrowinbik/material-styled-components.svg?branch=master)](https://travis-ci.org/nielsrowinbik/material-styled-components)
 
 ## Usage
 
