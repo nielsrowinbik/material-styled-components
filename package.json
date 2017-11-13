@@ -9,8 +9,9 @@
 	"repository": "nielsrowinbik/material-styled-components",
 	"scripts": {
 		"test": "eslint ./src/**",
-		"start": "babel ./src -w -d ./build",
-		"build": "babel ./src -d ./build",
+		"prebuild": "rimraf ./build",
+		"build": "babel ./src --out-dir ./build --ignore *.test.js",
+		"postbuild": "babel-node ./scripts/copy-files.js",
 		"docs:test": "eslint ./docs/src/**"
 	},
 	"devDependencies": {
@@ -23,7 +24,9 @@
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-0": "^6.24.1",
 		"eslint": "^4.10.0",
-		"eslint-config-synacor": "^2.0.2"
+		"eslint-config-synacor": "^2.0.2",
+		"fs-extra": "^4.0.2",
+		"rimraf": "^2.6.2"
 	},
 	"dependencies": {
 		"color": "^2.0.1",
