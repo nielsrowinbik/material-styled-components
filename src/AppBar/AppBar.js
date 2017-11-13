@@ -13,14 +13,17 @@ const Title = styled.h2`
 	display: inline-block;
 `;
 
+const MenuButton = styled(Button)`
+	margin-right: 8px;
+	color: white !important;
+`;
+
 const AppBarComponent = ({ className, title, dense, menuAction, children }) => (
 	<header className={className}>
-		{ menuAction && (
-			<Button round mini={dense} onClick={menuAction}><MenuIcon /></Button>
-		) }
+		{ menuAction && <MenuButton round onClick={menuAction}><MenuIcon /></MenuButton> }
 		{ title && typeof title === 'string' && <Title>{ title }</Title> }
 		{ typeof title !== 'string' && title }
-		{children}
+		{ children }
 	</header>
 );
 
@@ -51,10 +54,9 @@ const AppBar = styled(AppBarComponent)`
 AppBar.propTypes = {
 	dense: PropTypes.bool,
 	fixed: PropTypes.bool,
-	title: PropTypes.oneOf([
+	title: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.node,
-		PropTypes.object
+		PropTypes.node
 	]),
 	menuAction: PropTypes.func
 };
