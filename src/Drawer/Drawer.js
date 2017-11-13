@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import elevation from '../mixins/elevation';
@@ -14,9 +14,33 @@ const temporary = css`
 	transform: ${props => props.open ? 'translate3d(0, 0, 0)' : 'translate3d(-110%, 0, 0)' };
 `;
 
-const DrawerComponent = ({ className, children }) => (
-	<aside className={className}>{ children }</aside>
-);
+class DrawerComponent extends Component {
+
+	isFirst = false;
+
+	handleWindowClick = (event) => {
+		if (this.isFirst) return this.isFirst = false;
+		if (this.props.onRequestClose) this.props.onRequestClose(event);
+	}
+
+	componentWillReceiveProps = (nextProps) => {
+		let { open: newOpen } = nextProps,
+			{ open: curOpen } = this.props;
+		
+		if (curOpen === false && newOpen === true) {
+			this.isFirst = true;
+			window.addEventListener('click', this.handleWindowClick);
+		}
+		else if (curOpen === true && newOpen === false) {
+			window.removeEventListener('click', this.handleWindowClick);
+		}
+	}
+
+	render = () => {
+		let { className, children } = this.props;
+		return <aside className={className}>{ children }</aside>;
+	}
+}
 
 const Drawer = styled(DrawerComponent)`
 	width: calc(100vw - 56px);
@@ -39,7 +63,12 @@ Drawer.propTypes = {
 		'card',
 		'temporary'
 	]).isRequired,
+	onRequestClose: PropTypes.func,
 	open: PropTypes.bool
+};
+
+Drawer.defaultProps = {
+	mode: 'permanent'
 };
 
 Drawer.displayName = 'Drawer';
