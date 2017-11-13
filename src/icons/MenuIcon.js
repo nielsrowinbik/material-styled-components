@@ -9,7 +9,7 @@ const MenuIcon = (props) => createElement(
 );
 
 MenuIcon.defaultProps = {
-	viewBox: '0 0 24px 24px',
+	viewBox: '0 0 24 24',
 	width: '24px',
 	height: '24px'
 };
