@@ -13,17 +13,23 @@ const ListItemTextComponent = ({ className, primary, secondary }) => (
 const ListItemText = styled(ListItemTextComponent)`
 	flex: 1 1 auto;
 	padding-left: 16px;
+	text-align: left;
+
+	& > h3,
+	& > p {
+		margin: 0;
+		display: inline-block;
+		text-decoration: none;
+	}
 
 	& > h3 {
 		${ font(400, 16, 24) }
 		color: ${props => props.theme.textColors.primary};
-		margin: 0;
 	}
 
 	& > p {
 		${ font(400, 14, 20) }
 		color: ${props => props.theme.textColors.secondary};
-		margin: 0;
 	}
 `;
 

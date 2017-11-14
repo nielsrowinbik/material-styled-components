@@ -6,10 +6,9 @@ const ListItem = styled.li`
 	min-height: 48px;
 	box-sizing: border-box;
 	display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: flex-start;
-    text-decoration: none;
+	position: relative;
+	align-items: center;
+	justify-content: flex-start;
 
 	&:hover {
 		cursor: pointer;
