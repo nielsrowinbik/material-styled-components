@@ -13,17 +13,28 @@ const Title = styled.h2`
 	display: inline-block;
 `;
 
-const MenuButton = styled(Button)`
+const MenuButton = Button.extend`
 	margin-right: 8px;
 	color: white !important;
 `;
 
+const ChildContainer = styled.div`
+	flex: auto;
+	height: 100%;
+	padding-left: 16px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: flex-end;
+`;
+
 const AppBarComponent = ({ className, title, dense, menuAction, children }) => (
 	<header className={className}>
-		{ menuAction && <MenuButton round onClick={menuAction}><MenuIcon /></MenuButton> }
+		{ menuAction && <MenuButton round mini={dense} onClick={menuAction}><MenuIcon /></MenuButton> }
 		{ title && typeof title === 'string' && <Title>{ title }</Title> }
 		{ typeof title !== 'string' && title }
-		{ children }
+		<ChildContainer>{ children }</ChildContainer>
 	</header>
 );
 
