@@ -6,8 +6,8 @@ import { font } from '../mixins/typography';
 
 const round = css`
 	border-radius: 50%;
-	width: ${props => props.raised ? props.mini ? 40 : 56 : props.mini ? 32 : 48 }px;
-	height: ${props => props.raised ? props.mini ? 40 : 56 : props.mini ? 32 : 48 }px;
+	width: ${props => props.raised ? props.mini ? 40 : 56 : props.mini ? 40 : 48 }px;
+	height: ${props => props.raised ? props.mini ? 40 : 56 : props.mini ? 40 : 48 }px;
 	padding: 0;
 	
 	${props => props.raised ? raised : flat}
