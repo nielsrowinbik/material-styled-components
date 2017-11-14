@@ -18,8 +18,7 @@ const createPackage = async () => {
 		buildPackage = {
 			...packageData,
 			name: 'material-styled-components',
-			main: './index.js',
-			private: false
+			main: './index.js'
 		},
 		buildPath = path.resolve(__dirname, '../build/package.json'),
 		buildPackageData = JSON.stringify(buildPackage, null, 2);
