@@ -85,6 +85,12 @@ const Snackbar = styled(SnackbarComponent)`
 		left: 50%;
 		transform: ${props => props.open ? `translate3d(-50%, 0, 0)` : `translate3d(-50%, 100%, 0)`};
 	}
+	
+	& > * {
+		// TODO: tweak this animation
+		opacity: ${props => props.open ? 1 : 0};
+		transition: opacity 225ms ease-out 75ms;
+	}
 `;
 
 Snackbar.propTypes = {
