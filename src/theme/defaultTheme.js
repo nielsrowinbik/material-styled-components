@@ -6,6 +6,7 @@ const defaultTheme = {
 	primary: '#3f51b5',
 	accent: '#ff4081',
 	white: '#ffffff',
+	error: '#f44336',
 
 	elevation: {
 		property: 'box-shadow',

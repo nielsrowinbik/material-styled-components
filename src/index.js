@@ -27,4 +27,5 @@ export {
 	ListSubheader
 } from './List';
 export { default as Snackbar } from './Snackbar';
+export { default as TextField } from './TextField';
 export { default as ThemeProvider } from './theme/ThemeProvider';
