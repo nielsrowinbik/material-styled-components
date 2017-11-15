@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - stable
+
+script:
+  - yarn build
+
+branches:
+  only:
+    - master
+    - next
+    - /^release\/.*$/
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
