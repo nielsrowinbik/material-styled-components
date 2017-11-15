@@ -1,4 +1,5 @@
 import React, { createElement, Component } from 'react';
+import Transition from 'react-transition-group/Transition';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -15,6 +16,8 @@ const Overlay = styled.div`
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.54);
 	z-index: 24;
+	transition: opacity 225ms ease;
+	opacity: ${props => props.visible ? 1 : 0};
 `;
 
 const BaseComponent = ({ children, isForm, ...props }) => createElement(
@@ -35,6 +38,9 @@ const Base = styled(BaseComponent)`
 `;
 
 class Dialog extends Component {
+	state = {
+		visible: false
+	}
 
 	handleOverlayClick = (event) => {
 		if (this.props.onRequestClose) this.props.onRequestClose('click');
@@ -47,6 +53,10 @@ class Dialog extends Component {
 		if (this.props.onRequestClose) this.props.onRequestClose('submit');
 		this.props.onSubmit(event);
 	}
+
+	onEntered = () => this.setState({ visible: true });
+
+	onExit = () => this.setState({ visible: false });
 
 	componentWillReceiveProps(nextProps) {
 		let { open: newOpen } = nextProps,
@@ -62,17 +72,27 @@ class Dialog extends Component {
 
 	render() {
 		let { open, onSubmit, children } = this.props;
-		return open && createPortal((
-			<Overlay
-				ref={node => this.overlay = node}
-				onClick={this.handleOverlayClick}
+		return createPortal((
+			<Transition
+				timeout={{ enter: 0, exit: 225 }}
+				in={open}
+				mountOnEnter
+				unmountOnExit
+				onEntered={this.onEntered}
+				onExit={this.onExit}
 			>
-				<Base
-					onClick={this.handleBaseClick}
-					onSubmit={this.handleSubmit}
-					isForm={typeof onSubmit === 'function'}
-				>{ children }</Base>
-			</Overlay>
+				<Overlay
+					{...this.state}
+					ref={node => this.overlay = node}
+					onClick={this.handleOverlayClick}
+				>
+					<Base
+						onClick={this.handleBaseClick}
+						onSubmit={this.handleSubmit}
+						isForm={typeof onSubmit === 'function'}
+					>{ children }</Base>
+				</Overlay>
+			</Transition>
 		), document.body);
 	}
 }
