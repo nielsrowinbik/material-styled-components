@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import typography, { font } from '../mixins/typography';
 
-const CardTitleComponent = ({ className, title, smallTitle, subtitle }) => (
+const CardTitleComponent = ({ className, primary, secondary }) => (
 	<div className={className}>
-		{ (title || smallTitle) && <h2>{ title || smallTitle }</h2> }
-		{ subtitle && <h3>{ subtitle }</h3> }
+		{ primary && <h2>{ primary }</h2> }
+		{ secondary && <h3>{ secondary }</h3> }
 	</div>
 );
 
 const CardTitle = styled(CardTitleComponent)`
-	padding: ${props => props.title ? 24 : 16}px 16px 16px 16px;
+	padding: ${props => props.primary ? 24 : 16}px 16px 16px 16px;
+	text-align: left;
 
 	&:last-child {
 		padding-bottom: 24px;
@@ -23,17 +24,16 @@ const CardTitle = styled(CardTitleComponent)`
 	}
 	
 	& > h3 {
-		${ font(400, 14, 14) }
+		${ font(400, 14, 20) }
 		margin: 0;
 		color: ${props => props.theme.textColors.secondary};
-		padding-top: 12px;
 	}
 `;
 
 CardTitle.propTypes = {
-	title: PropTypes.string,
-	subtitle: PropTypes.string,
-	smallTitle: PropTypes.string
+	primary: PropTypes.string,
+	secondary: PropTypes.string,
+	smallTitle: PropTypes.bool
 };
 
 CardTitle.displayName = 'CardTitle';

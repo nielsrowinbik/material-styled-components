@@ -1,10 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-
-const CardActionsComponent = ({ className, children }) => (
-	<div className={className}>{ children }</div>
-);
 
 const vertical = css`
 	display: flex;
@@ -12,7 +7,7 @@ const vertical = css`
 	flex-wrap: nowrap;
 `;
 
-const CardActions = styled(CardActionsComponent)`
+const CardActions = styled.div`
 	padding: 6px 8px;
 	text-align: ${props => props.alignRight ? 'right' : 'left'};
 
@@ -29,8 +24,7 @@ const CardActions = styled(CardActionsComponent)`
 
 CardActions.propTypes = {
 	alignRight: PropTypes.bool,
-	vertical: PropTypes.bool,
-	children: PropTypes.arrayOf(PropTypes.node)
+	vertical: PropTypes.bool
 };
 
 CardActions.defaultProps = {
