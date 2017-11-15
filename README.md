@@ -9,6 +9,8 @@ $ yarn add material-styled-components
 
 [![npm](https://img.shields.io/npm/v/material-styled-components.svg)](https://www.npmjs.com/package/material-styled-components) [![Build status](https://travis-ci.org/nielsrowinbik/material-styled-components.svg?branch=master)](https://travis-ci.org/nielsrowinbik/material-styled-components)
 
+[![dependencies Status](https://david-dm.org/nielsrowinbik/material-styled-components/status.svg)](https://david-dm.org/nielsrowinbik/material-styled-components) [![devDependencies Status](https://david-dm.org/nielsrowinbik/material-styled-components/dev-status.svg)](https://david-dm.org/nielsrowinbik/material-styled-components?type=dev)
+
 ## Usage
 
 This quick example should get you going within seconds:
