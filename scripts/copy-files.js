@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs-extra';
 
 const copyFile = async (file) => {
-	let buildPath = path.resolve(__dirname, '../build/', path.basename(file));
+	let buildPath = path.resolve(__dirname, '../lib/', path.basename(file));
 
 	await fs.copy(file, buildPath, (err) => {
 		if (err) throw err;
@@ -20,7 +20,7 @@ const createPackage = async () => {
 			name: 'material-styled-components',
 			main: './index.js'
 		},
-		buildPath = path.resolve(__dirname, '../build/package.json'),
+		buildPath = path.resolve(__dirname, '../lib/package.json'),
 		buildPackageData = JSON.stringify(buildPackage, null, 2);
 
 	await fs.writeFile(buildPath, buildPackageData);
