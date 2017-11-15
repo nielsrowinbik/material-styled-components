@@ -1,6 +1,6 @@
 {
 	"name": "material-styled-components",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Styled Components that implement Google's Material Design",
 	"bugs": "https://github.com/nielsrowinbik/material-styled-components/issues",
 	"license": "MIT",
@@ -8,12 +8,15 @@
 	"main": "./src/index.js",
 	"repository": "nielsrowinbik/material-styled-components",
 	"scripts": {
-		"test": "eslint ./src/**",
-		"prebuild": "rimraf ./build",
-		"build": "babel ./src --out-dir ./build --ignore *.test.js",
-		"postbuild": "babel-node ./scripts/copy-files.js",
-		"dev": "babel ./src --out-dir ./build --ignore *.test.js --watch",
-		"docs:test": "eslint ./docs/src/**"
+		"build": "yarn build:lib",
+		"prebuild:lib": "rimraf lib/*",
+		"build:lib": "babel src --out-dir lib --ignore *.test.js",
+		"postbuild:lib": "babel-node scripts/copy-files.js",
+		"dev": "babel src --out-dir build --ignore *.test.js --watch",
+		"test": "yarn test:web && test:size",
+		"test:web": "jest",
+		"test:size": "bundlesize",
+		"lint": "eslint src"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
@@ -24,9 +27,11 @@
 		"babel-preset-env": "^1.6.1",
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-0": "^6.24.1",
+		"bundlesize": "^0.15.3",
 		"eslint": "^4.10.0",
 		"eslint-config-synacor": "^2.0.2",
 		"fs-extra": "^4.0.2",
+		"jest": "^21.2.1",
 		"rimraf": "^2.6.2"
 	},
 	"dependencies": {
