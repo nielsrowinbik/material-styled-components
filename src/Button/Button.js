@@ -95,11 +95,13 @@ Button.propTypes = {
 	raised: PropTypes.bool,
 	round: PropTypes.bool,
 	mini: PropTypes.bool,
-	ripple: PropTypes.bool
+	ripple: PropTypes.bool,
+	type: PropTypes.string
 };
 
 Button.defaultProps = {
-	ripple: true
+	ripple: true,
+	type: 'button'
 };
 
 Button.displayName = 'Button';
