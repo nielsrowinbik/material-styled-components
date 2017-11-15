@@ -1,20 +1,20 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import elevation from '../mixins/elevation';
 
-const BottomNavigationComponent = ({ className, children }) => (
-	<div className={className}>{ children }</div>
-);
-
-const primary = css`
-	background-color: ${props => props.theme.primary};
+const sidebar = css`
+	right: auto;
+	left: 0;
+	top: 0;
+	height: auto;
+	${ elevation(0) }
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-top: 64px;
+	width: 72px;
 `;
 
-const accent = css`
-	background-color: ${props => props.theme.accent};
-`;
-
-const BottomNavigation = styled(BottomNavigationComponent)`
+const BottomNavigation = styled.div`
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -25,13 +25,20 @@ const BottomNavigation = styled(BottomNavigationComponent)`
 	flex-wrap: nowrap;
 	justify-content: center;
 	background-color: white;
-	${props => props.primary && primary};
-	${props => props.accent && accent};
 	${ elevation(8) }
 
 	@media (min-width: 601px) {
-		display: none;
+		${props => props.sidebar ? sidebar : `display: none;` }
 	}
 `;
 
+BottomNavigation.propTypes = {
+	sidebar: PropTypes.bool.isRequired
+};
+
+BottomNavigation.defaultProps = {
+	sidebar: true
+};
+
+BottomNavigation.displayName = 'BottomNavigation';
 export default BottomNavigation;

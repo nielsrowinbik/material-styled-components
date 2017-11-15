@@ -1,12 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import withRipple from '../decorators/withRipple';
+import { font } from '../mixins/typography';
 
-const BottomNavigationButtonComponent = ({ className, icon, children, label }) => (
+const BottomNavigationButtonComponent = ({ className, icon, label }) => (
 	<div className={className}>
 		<label>{ label }</label>
 		{ icon }
-		{ children }
 	</div>
 );
 
@@ -21,22 +21,44 @@ const BottomNavigationButton = styled(BottomNavigationButtonComponent)`
 	flex-direction: column-reverse;
 	flex-wrap: nowrap;
 	align-items: center;
-	justify-content: ${props => props.title && props.icon ? 'space-between' : 'center' };
+	justify-content: center;
+	color: ${props => props.theme.textColors.icon};
 	
 	& > label {
-		color: ${props => props.active ? props.theme.accent : '#878787'};
-		font: 400 ${props => props.active ? 14 : 12 }px Roboto, Arial, sans-serif;
+		${props => font(400, 12) }
 		transition: font 225ms ease;
+		pointer-events: none;
 	}
 	
 	& > svg {
-		fill: ${props => props.active ? props.theme.accent : '#878787'};
+		fill: currentColor;
 		flex: 0 0 24px;
 	}
 
 	&:hover {
 		cursor: pointer;
 	}
+
+	@media (min-width: 601px) {
+		width: 100%;
+		min-width: auto;
+		max-width: none;
+		flex: 0 0 72px;
+		border-radius: 50%;
+		padding: 0;
+
+		& > label {
+			${ font(400, 10) }
+			margin-top: 6px;
+			transition: none;
+		}
+	}
 `;
 
-export default withRipple(BottomNavigationButton);
+BottomNavigationButton.propTypes = {
+	label: PropTypes.string.isRequired,
+	icon: PropTypes.node.isRequired
+};
+
+BottomNavigationButton.displayName = 'BottomNavigationButton';
+export default BottomNavigationButton;
