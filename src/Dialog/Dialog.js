@@ -37,7 +37,7 @@ const Base = styled(BaseComponent)`
 	overflow-y: auto;
 `;
 
-class Dialog extends Component {
+class DialogClass extends Component {
 	state = {
 		visible: false
 	}
@@ -71,8 +71,9 @@ class Dialog extends Component {
 	}
 
 	render() {
-		let { open, onSubmit, children } = this.props;
-		return createPortal((
+		let { open, onSubmit, portal, children, className } = this.props;
+
+		const CompToRender = (
 			<Transition
 				timeout={{ enter: 0, exit: 225 }}
 				in={open}
@@ -83,7 +84,7 @@ class Dialog extends Component {
 			>
 				<Overlay
 					{...this.state}
-					ref={node => this.overlay = node}
+					className={className}
 					onClick={this.handleOverlayClick}
 				>
 					<Base
@@ -93,14 +94,23 @@ class Dialog extends Component {
 					>{ children }</Base>
 				</Overlay>
 			</Transition>
-		), document.body);
+		);
+
+		return portal ? createPortal(CompToRender, document.body) : CompToRender;
 	}
 }
+
+const Dialog = styled(DialogClass)``;
 
 Dialog.PropTypes = {
 	onSubmit: PropTypes.func,
 	onRequestClose: PropTypes.func,
-	open: PropTypes.bool.isRequired
+	open: PropTypes.bool.isRequired,
+	portal: PropTypes.bool.isRequired
+};
+
+Dialog.defaultProps = {
+	portal: true
 };
 
 Dialog.displayName = 'Dialog';

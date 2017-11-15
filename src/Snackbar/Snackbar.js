@@ -3,60 +3,12 @@ import { createPortal } from 'react-dom';
 import Transition from 'react-transition-group/Transition';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { font } from '../mixins/typography';
-import elevation, { elevationTransition } from '../mixins/elevation';
 
-const Message = styled.span`
-	flex: auto;
-	text-align: left;
-	color: white;
-	${ font(400, 14, 20) }
-	word-wrap: break-word;
-`;
+import SnackbarMessage from './SnackbarMessage';
+import SnackbarActionMessage from './SnackbarActionMessage';
+import SnackbarBase from './SnackbarBase';
 
-const ActionMessage = styled.span`
-	text-align: right;
-	margin-left: 24px;
-	color: ${props => props.theme.accent};
-	${ font(500, 14, 20) }
-
-	&:hover {
-		cursor: pointer;
-	}
-
-	@media (min-width: 601px) {
-		margin-left: 48px;
-	}
-`;
-
-const Base = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100vw;
-	min-height: 48px;
-	max-height: 112px;
-	padding: 14px 24px; // TODO: top and bottom padding should be 24px when message spans across multiple lines
-	box-sizing: border-box;
-	background-color: #323232;
-	${ elevation(1) }
-	transform: ${props => props.visible ? `translate3d(0, 0, 0)` : `translate3d(0, 100%, 0)`};
-	transition: ${elevationTransition}, transform 225ms ${props => props.visible ? `cubic-bezier(0.4, 0, 0.2, 1)` : `cubic-bezier(0, 0, 0.2, 1)`};
-
-	@media (min-width: 601px) {
-		width: auto;
-		min-width: 288px;
-		max-width: 568px;
-		border-radius: 2px;
-		left: 50%;
-		transform: ${props => props.visible ? `translate3d(-50%, 0, 0)` : `translate3d(-50%, 100%, 0)`};
-	}
-`;
-
-class Snackbar extends Component {
+class SnackbarClass extends Component {
 	state = {
 		visible: false
 	}
@@ -86,8 +38,9 @@ class Snackbar extends Component {
 	}
 
 	render() {
-		let { open, message, actionMessage } = this.props;
-		return createPortal((
+		let { open, message, actionMessage, portal, className } = this.props;
+
+		const CompToRender = (
 			<Transition
 				timeout={{ enter: 0, exit: 225 }}
 				in={open}
@@ -96,18 +49,23 @@ class Snackbar extends Component {
 				onEntered={this.onEntered}
 				onExit={this.onExit}
 			>
-				<Base onClick={this.handleClick} {...this.state}>
-					<Message>{ message }</Message>
-					{ actionMessage && <ActionMessage onClick={this.handleActionClick}>{ actionMessage }</ActionMessage> }
-				</Base>
+				<SnackbarBase className={className} onClick={this.handleClick} {...this.state}>
+					<SnackbarMessage>{ message }</SnackbarMessage>
+					{ actionMessage && <SnackbarActionMessage onClick={this.handleActionClick}>{ actionMessage }</SnackbarActionMessage> }
+				</SnackbarBase>
 			</Transition>
-		), document.body);
+		);
+
+		return portal ? createPortal(CompToRender, document.body) : CompToRender;
 	}
 }
+
+const Snackbar = styled(SnackbarClass)``;
 
 Snackbar.propTypes = {
 	open: PropTypes.bool.isRequired,
 	message: PropTypes.string.isRequired,
+	portal: PropTypes.bool.isRequired,
 	action: PropTypes.func,
 	actionMessage: PropTypes.string,
 	autohideDuration: PropTypes.number,
@@ -115,7 +73,7 @@ Snackbar.propTypes = {
 };
 
 Snackbar.defaultProps = {
-	open: false
+	portal: true
 };
 
 Snackbar.displayName = 'Snackbar';
