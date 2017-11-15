@@ -4,7 +4,7 @@ A set of [Styled Components](https://github.com/styled-components/styled-compone
 
 ```sh
 $ npm install material-styled-components
-& yarn add material-styled-components
+$ yarn add material-styled-components
 ```
 
 [![npm](https://img.shields.io/npm/v/material-styled-components.svg)](https://www.npmjs.com/package/material-styled-components) [![Build status](https://travis-ci.org/nielsrowinbik/material-styled-components.svg?branch=master)](https://travis-ci.org/nielsrowinbik/material-styled-components)
@@ -19,9 +19,9 @@ import { render } from 'react-dom';
 import Button from 'material-styled-components/Button';
 
 function App() {
-	return (
-		<Button>Hello World</Button>
-	);
+  return (
+    <Button>Hello World</Button>
+  );
 }
 
 render(<App />, document.querySelector('#app'));
