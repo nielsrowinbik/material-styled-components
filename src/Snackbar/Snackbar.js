@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
+import Transition from 'react-transition-group/Transition';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { font } from '../mixins/typography';
@@ -27,40 +29,7 @@ const ActionMessage = styled.span`
 	}
 `;
 
-class SnackbarComponent extends Component {
-
-	handleActionClick = (event) => {
-		if (this.props.onRequestClose) this.props.onRequestClose('action');
-		if (this.props.action) this.props.action(event);
-	}
-	
-	handleClick = () => {
-		if (this.props.onRequestClose) this.props.onRequestClose('click');
-	}
-
-	componentWillReceiveProps(nextProps) {
-		let { open: newOpen, autohideDuration } = nextProps,
-			{ open: curOpen } = this.props;
-
-		if (curOpen !== newOpen && newOpen === true && autohideDuration > 0) {
-			setTimeout(() => {
-				if (this.props.onRequestClose) this.props.onRequestClose('timeout');
-			}, autohideDuration);
-		}
-	}
-
-	render() {
-		let { className, message, actionMessage } = this.props;
-		return (
-			<div className={className} onClick={this.handleClick}>
-				<Message>{ message }</Message>
-				{ actionMessage && <ActionMessage onClick={this.handleActionClick}>{ actionMessage }</ActionMessage> }
-			</div>
-		);
-	}
-}
-
-const Snackbar = styled(SnackbarComponent)`
+const Base = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -74,8 +43,8 @@ const Snackbar = styled(SnackbarComponent)`
 	box-sizing: border-box;
 	background-color: #323232;
 	${ elevation(1) }
-	transform: ${props => props.open ? `translate3d(0, 0, 0)` : `translate3d(0, 100%, 0)`};
-	transition: ${elevationTransition}, transform 225ms ${props => props.open ? `cubic-bezier(0.4, 0, 0.2, 1)` : `cubic-bezier(0, 0, 0.2, 1)`};
+	transform: ${props => props.visible ? `translate3d(0, 0, 0)` : `translate3d(0, 100%, 0)`};
+	transition: ${elevationTransition}, transform 225ms ${props => props.visible ? `cubic-bezier(0.4, 0, 0.2, 1)` : `cubic-bezier(0, 0, 0.2, 1)`};
 
 	@media (min-width: 601px) {
 		width: auto;
@@ -83,15 +52,58 @@ const Snackbar = styled(SnackbarComponent)`
 		max-width: 568px;
 		border-radius: 2px;
 		left: 50%;
-		transform: ${props => props.open ? `translate3d(-50%, 0, 0)` : `translate3d(-50%, 100%, 0)`};
-	}
-	
-	& > * {
-		// TODO: tweak this animation
-		opacity: ${props => props.open ? 1 : 0};
-		transition: opacity 225ms ease-out 75ms;
+		transform: ${props => props.visible ? `translate3d(-50%, 0, 0)` : `translate3d(-50%, 100%, 0)`};
 	}
 `;
+
+class Snackbar extends Component {
+	state = {
+		visible: false
+	}
+
+	handleActionClick = (event) => {
+		if (this.props.onRequestClose) this.props.onRequestClose('action');
+		if (this.props.action) this.props.action(event);
+	}
+	
+	handleClick = () => {
+		if (this.props.onRequestClose) this.props.onRequestClose('click');
+	}
+	
+	onEntered = () => this.setState({ visible: true });
+	
+	onExit = () => this.setState({ visible: false });
+
+	componentWillReceiveProps(nextProps) {
+		let { open: newOpen, autohideDuration } = nextProps,
+			{ open: curOpen } = this.props;
+
+		if (curOpen !== newOpen && newOpen === true && autohideDuration > 0) {
+			setTimeout(() => {
+				if (this.props.onRequestClose) this.props.onRequestClose('timeout');
+			}, autohideDuration);
+		}
+	}
+
+	render() {
+		let { open, message, actionMessage } = this.props;
+		return createPortal((
+			<Transition
+				timeout={{ enter: 0, exit: 225 }}
+				in={open}
+				mountOnEnter
+				unmountOnExit
+				onEntered={this.onEntered}
+				onExit={this.onExit}
+			>
+				<Base onClick={this.handleClick} {...this.state}>
+					<Message>{ message }</Message>
+					{ actionMessage && <ActionMessage onClick={this.handleActionClick}>{ actionMessage }</ActionMessage> }
+				</Base>
+			</Transition>
+		), document.body);
+	}
+}
 
 Snackbar.propTypes = {
 	open: PropTypes.bool.isRequired,
