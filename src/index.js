@@ -11,6 +11,13 @@ export {
 	CardMedia,
 	CardTitle
 } from './Card';
+export {
+	default as Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogContentText,
+	DialogActions
+} from './Dialog';
 export { default as Drawer } from './Drawer';
 export {
 	default as List,
