@@ -1,4 +1,5 @@
 export { default as AppBar } from './AppBar';
+export { default as Avatar } from './Avatar';
 export {
 	default as BottomNavigation,
 	BottomNavigationButton
@@ -26,6 +27,7 @@ export {
 	ListItemText,
 	ListSubheader
 } from './List';
+export { Circular } from './Progress';
 export { default as Snackbar } from './Snackbar';
 export { default as TextField } from './TextField';
 export { default as ThemeProvider } from './theme/ThemeProvider';
