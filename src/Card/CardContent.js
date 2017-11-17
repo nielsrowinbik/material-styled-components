@@ -7,8 +7,13 @@ const CardContentComponent = ({ className, children }) => (
 );
 
 const CardContent = styled(CardContentComponent)`
-	padding: 16px;
+	padding: 0 16px 16px;
 	${ typography('body1') }
+	margin: 0;
+
+	&:first-child {
+		padding-top: 16px;
+	}
 `;
 
 CardContent.displayName = 'CardContent';
