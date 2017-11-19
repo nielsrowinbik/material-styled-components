@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import withRipple from '../hoc/withRipple';
 
 const ListItem = styled.li`
 	padding: 12px 16px;
@@ -23,4 +24,4 @@ ListItem.propTypes = {
 };
 
 ListItem.displayName = 'ListItem';
-export default ListItem;
+export default withRipple(ListItem);
