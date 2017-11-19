@@ -12,6 +12,7 @@ const sidebar = css`
 	justify-content: flex-start;
 	padding-top: 64px;
 	width: 72px;
+	background-color: transparent;
 `;
 
 const BottomNavigation = styled.div`

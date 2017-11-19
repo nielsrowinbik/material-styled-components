@@ -3,6 +3,7 @@ import color from 'color';
 import styled, { css } from 'styled-components';
 import elevation, { elevationTransition } from '../mixins/elevation';
 import { font } from '../mixins/typography';
+import withRipple from '../hoc/withRipple';
 
 const round = css`
 	border-radius: 50%;
@@ -105,4 +106,4 @@ Button.defaultProps = {
 };
 
 Button.displayName = 'Button';
-export default Button;
+export default withRipple(Button);

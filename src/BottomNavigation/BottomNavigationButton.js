@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import withRipple from '../hoc/withRipple';
 
 const BottomNavigationButtonComponent = ({ component, children, ...props }) => createElement(
 	component,
@@ -38,7 +39,6 @@ const BottomNavigationButton = styled(BottomNavigationButtonComponent)`
 `;
 
 BottomNavigationButton.propTypes = {
-	children: PropTypes.arrayOf(PropTypes.element),
 	component: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.element
@@ -50,4 +50,4 @@ BottomNavigationButton.defaultProps = {
 };
 
 BottomNavigationButton.displayName = 'BottomNavigationButton';
-export default BottomNavigationButton;
+export default withRipple(BottomNavigationButton);
