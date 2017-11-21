@@ -8,7 +8,7 @@ const AvatarComponent = ({ children, src, size, ...props }) => {
 
 	if (typeof children === 'string') {
 		let words = children.split(' ');
-		res = [words[0], words[words.length - 1]].map((str) => str[0]);
+		res = words.length > 1 ? [words[0], words[words.length - 1]].map((str) => str[0]) : words[0][0];
 	}
 
 	return createElement(
