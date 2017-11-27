@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 import elevation, { elevationTransition } from '../mixins/elevation';
 import { font } from '../mixins/typography';
 import withRipple from '../hoc/withRipple';
+import colors from '../colors/all';
+import React from 'react';
 
 const round = css`
 	border-radius: 50%;
@@ -32,27 +34,25 @@ const raised = css`
 		${props => props.round ? elevation(12) : elevation(8) };
 	}
 
-	${props => (props.primary || props.accent) && `color: white;`}
-	${props => props.primary && `background: ${props.theme.primary};` };
-	${props => props.accent && `background: ${props.theme.accent};` };
+	${props => props.color !== 'default' && `color: white;`}
+	background: ${props => props.backgroundColor};
 
 	&:hover {
-		${props => props.primary && `background: ${color(props.theme.primary).darken(0.12).toString()}` };
-		${props => props.accent && `background: ${color(props.theme.accent).darken(0.12).toString()}` };
+		background: ${props => color(props.backgroundColor).darken(0.12).toString()};
 	}
 `;
 
 const flat = css`
-	${props => props.primary && `color: ${props.theme.primary};` };
-	${props => props.accent && `color: ${props.theme.accent};` };
+	${props => props.color !== 'default' && `color: ${props.backgroundColor};`}
 
 	&:hover {
-		${props => props.primary && `background: ${color(props.theme.primary).alpha(0.12).toString()}` };
-		${props => props.accent && `background: ${color(props.theme.accent).alpha(0.12).toString()}` };
+		${props => props.color !== 'default' && `background: ${color(props.backgroundColor).alpha(0.12).toString()};`}
 	}
 `;
 
-const Button = styled.button`
+const Button = styled(({ color, raised, round, mini, dense, backgroundColor, ...props }) => <button {...props} />).attrs({
+	backgroundColor: props => props.color === 'default' ? '#ffffff' : props.color === 'primary' ? props.theme.primary : props.color === 'accent' ? props.theme.accent : props.color
+})`
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -91,18 +91,22 @@ const Button = styled.button`
 `;
 
 Button.propTypes = {
-	primary: PropTypes.bool,
-	accent: PropTypes.bool,
+	color: PropTypes.oneOf([
+		'default',
+		'primary',
+		'accent',
+		...colors
+	]).isRequired,
 	raised: PropTypes.bool,
 	round: PropTypes.bool,
 	mini: PropTypes.bool,
-	ripple: PropTypes.bool,
+	dense: PropTypes.bool,
 	type: PropTypes.string
 };
 
 Button.defaultProps = {
-	ripple: true,
-	type: 'button'
+	type: 'button',
+	color: 'default'
 };
 
 Button.displayName = 'Button';
