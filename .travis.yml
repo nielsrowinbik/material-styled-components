@@ -3,6 +3,7 @@ node_js:
   - stable
 
 script:
+  - yarn test
   - yarn build
 
 branches:
