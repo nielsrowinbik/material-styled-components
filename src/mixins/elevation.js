@@ -84,12 +84,14 @@ const depth = {
 	]
 };
 
-export const elevationTransition = css`
-	box-shadow 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, z-index 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
-`;
+const colors = {
+	umbra: 'rgba(0, 0, 0, 0.2)',
+	penumbra: 'rgba(0, 0, 0, 0.14)',
+	ambient: 'rgba(0, 0, 0, 0.12)'
+};
 
 const addDepth = (type, z) => css`
-	${props => `${depth[type][z]} ${props.theme.elevation.colors[type]}`}
+	${props => `${depth[type][z]} ${colors[type]}`}
 `;
 
 const elevationMixin = z => css`
