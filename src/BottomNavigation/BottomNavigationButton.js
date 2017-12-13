@@ -1,15 +1,9 @@
-import { createElement } from 'react';
+import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import withRipple from '../hoc/withRipple';
 
-const BottomNavigationButtonComponent = ({ component, children, ...props }) => createElement(
-	component,
-	{ ...props },
-	children
-);
-
-const BottomNavigationButton = styled(BottomNavigationButtonComponent)`
+const BottomNavigationButton = styled(({ component, ...props }) => createElement(component, props))`
 	min-width: 80px;
 	max-width: 168px;
 	flex: auto;
@@ -21,7 +15,7 @@ const BottomNavigationButton = styled(BottomNavigationButtonComponent)`
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: center;
-	color: ${props => props.theme.textColors.icon};
+	color: ${({ theme }) => theme ? theme.textColors.icon : 'rgba(0, 0, 0, 0.54)'};
 	text-decoration: none;
 
 	&:hover {
@@ -41,7 +35,7 @@ const BottomNavigationButton = styled(BottomNavigationButtonComponent)`
 BottomNavigationButton.propTypes = {
 	component: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.element
+		PropTypes.instanceOf(Component)
 	])
 };
 

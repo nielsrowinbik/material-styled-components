@@ -1,21 +1,9 @@
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import elevation from '../mixins/elevation';
+import React from 'react';
 
-const sidebar = css`
-	right: auto;
-	left: 0;
-	top: 0;
-	height: auto;
-	${ elevation(0) }
-	flex-direction: column;
-	justify-content: flex-start;
-	padding-top: 64px;
-	width: 72px;
-	background-color: transparent;
-`;
-
-const BottomNavigation = styled.div`
+const BottomNavigation = styled(({ ...props }) => <div {...props} />)`
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -29,7 +17,18 @@ const BottomNavigation = styled.div`
 	${ elevation(8) }
 
 	@media (min-width: 601px) {
-		${props => props.sidebar ? sidebar : `display: none;` }
+		${({ sidebar }) => sidebar ? `
+			right: auto;
+			left: 0;
+			top: 0;
+			height: auto;
+			${ elevation(0) }
+			flex-direction: column;
+			justify-content: flex-start;
+			padding-top: 64px;
+			width: 72px;
+			background-color: transparent;
+		` : `display: none;`}
 	}
 `;
 
