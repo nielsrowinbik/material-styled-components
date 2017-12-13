@@ -6,7 +6,7 @@ import elevation from '../mixins/elevation';
 const AppBar = styled(({ children, color, dense, mainHeight, mobileHeight, title, ...props }) => <header {...props} />).attrs({
 	mainHeight: ({ dense }) => dense ? 48 : 64,
 	mobileHeight: ({ dense }) => dense ? 48 : 56,
-	color: ({ color, theme }) => theme[color] ? theme.color : color
+	color: ({ color, theme }) => theme[color] ? theme[color] : color
 })`
 	${({ fixed }) => fixed ? `
 		position: fixed;
@@ -35,6 +35,10 @@ AppBar.propTypes = {
 	color: PropTypes.string.isRequired,
 	dense: PropTypes.bool,
 	fixed: PropTypes.bool
+};
+
+AppBar.defaultProps = {
+	color: 'primary'
 };
 
 AppBar.displayName = 'AppBar';
