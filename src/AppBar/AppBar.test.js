@@ -1,20 +1,18 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import ThemeProvider from '../theme/ThemeProvider';
+import 'jest-styled-components';
+
+import theme from '../theme/defaultTheme';
 import AppBar from './AppBar';
 
 describe('<AppBar />', () => {
-	it('renders without crashing', () => {
-		mount(<ThemeProvider><AppBar /></ThemeProvider>);
+	it('renders correctly', () => {
+		mount(<AppBar theme={theme} />);
 	});
 
 	it('renders children when passed in', () => {
 		const children = <div className="test" />;
-		const wrapper = shallow((
-			<ThemeProvider>
-				<AppBar>{ children }</AppBar>
-			</ThemeProvider>
-		));
+		const wrapper = shallow(<AppBar theme={theme}>{ children }</AppBar>);
 		expect(wrapper.contains(children)).toBe(true);
 	});
 });
