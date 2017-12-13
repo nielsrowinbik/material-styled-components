@@ -3,25 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { font } from '../mixins/typography';
 
-const AvatarComponent = ({ children, src, size, ...props }) => {
-	let res;
-
-	if (typeof children === 'string') {
-		let words = children.split(' ');
-		res = words.length > 1 ? [words[0], words[words.length - 1]].map((str) => str[0]) : words[0][0];
+const Avatar = styled(({ children, shortChildren, size, ...props }) => createElement(props.src ? 'img' : 'div', props, shortChildren || children)).attrs({
+	shortChildren: ({ children }) => {
+		if (typeof children === 'string') {
+			const words = children.split(' ');
+			return words.length > 1 ? [words[0], words[words.length - 1]].map(str => str[0]) : words[0][0];
+		}
+		return false;
 	}
-
-	return createElement(
-		src ? 'img' : 'div',
-		{ src, ...props },
-		src ? null : res ? res : children
-	);
-};
-
-const Avatar = styled(AvatarComponent)`
+})`
 	display: inline-block;
-	width: ${props => props.size}px;
-	height: ${props => props.size}px;
+	width: ${({ size }) => size}px;
+	height: ${({ size }) => size}px;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
@@ -33,9 +26,9 @@ const Avatar = styled(AvatarComponent)`
 `;
 
 Avatar.propTypes = {
-	src: PropTypes.string,
-	children: PropTypes.node,
-	size: PropTypes.number.isRequired
+	children: PropTypes.string,
+	size: PropTypes.number,
+	src: PropTypes.string
 };
 
 Avatar.defaultProps = {
