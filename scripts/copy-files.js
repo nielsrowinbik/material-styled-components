@@ -11,6 +11,6 @@ const copyFile = async (file) => {
 	return;
 };
 
-const files = ['package.json', 'README.md', 'CONTRIBUTING.md', 'LICENSE'];
+const files = ['package.json', 'README.md', 'LICENSE'];
 
 Promise.all(files.map(file => copyFile(file)));
