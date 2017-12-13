@@ -38,7 +38,7 @@ AppBar.propTypes = {
 };
 
 AppBar.defaultProps = {
-	color: 'primary'
+	color: '#3f51b5'
 };
 
 AppBar.displayName = 'AppBar';

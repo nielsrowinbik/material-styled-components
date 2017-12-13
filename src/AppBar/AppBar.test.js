@@ -10,6 +10,10 @@ describe('<AppBar />', () => {
 		mount(<AppBar theme={theme} />);
 	});
 
+	it('renders correctly when no theme is provided', () => {
+		mount(<AppBar />);
+	});
+
 	it('renders children when passed in', () => {
 		const children = <div className="test" />;
 		const wrapper = shallow(<AppBar theme={theme}>{ children }</AppBar>);
