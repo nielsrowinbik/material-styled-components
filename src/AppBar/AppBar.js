@@ -32,9 +32,9 @@ const AppBar = styled(({ children, color, dense, mainHeight, mobileHeight, title
 `;
 
 AppBar.propTypes = {
+	color: PropTypes.string.isRequired,
 	dense: PropTypes.bool,
-	fixed: PropTypes.bool,
-	color: PropTypes.string
+	fixed: PropTypes.bool
 };
 
 AppBar.displayName = 'AppBar';
