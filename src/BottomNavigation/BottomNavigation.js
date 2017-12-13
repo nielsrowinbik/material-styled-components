@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import elevation from '../mixins/elevation';
 import React from 'react';
 
-const BottomNavigation = styled(({ ...props }) => <div {...props} />)`
+const BottomNavigation = styled(({ sidebar, ...props }) => <div {...props} />)`
 	position: fixed;
 	left: 0;
 	bottom: 0;
