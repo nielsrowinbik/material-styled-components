@@ -1,18 +1,11 @@
 import { Children, cloneElement } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const ListItemIconComponent = ({ children, className }) => cloneElement(Children.only(children), { className });
-
-const ListItemIcon = styled(ListItemIconComponent)`
+const ListItemIcon = styled(({ children, ...props }) => cloneElement(Children.only(children), props))`
 	flex-shrink: 0;
 	margin-right: 16px;
 	width: 24px;
-	color: ${props => props.theme.textColors.icon};
+	color: ${({ theme }) => theme ? theme.textColors.icon : 'rgba(0, 0, 0, 0.54)'};
 `;
-
-ListItemIcon.propTypes = {
-	children: PropTypes.node.isRequired
-};
 
 export default ListItemIcon;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import withRipple from '../hoc/withRipple';
 
@@ -16,12 +15,6 @@ const ListItem = styled.li`
     	background-color: rgba(0, 0, 0, 0.12);
 	}
 `;
-
-ListItem.propTypes = {
-	primary: PropTypes.string,
-	secondary: PropTypes.string,
-	children: PropTypes.node
-};
 
 ListItem.displayName = 'ListItem';
 export default withRipple(ListItem);
