@@ -11,23 +11,6 @@ const copyFile = async (file) => {
 	return;
 };
 
-const createPackage = async () => {
-	let data = await fs.readFile(path.resolve(__dirname, '../package.json'), 'utf8');
+const files = ['package.json', 'README.md', 'CONTRIBUTING.md', 'LICENSE'];
 
-	let packageData = JSON.parse(data),
-		buildPackage = {
-			...packageData,
-			name: 'material-styled-components',
-			main: './index.js'
-		},
-		buildPath = path.resolve(__dirname, '../lib/package.json'),
-		buildPackageData = JSON.stringify(buildPackage, null, 2);
-
-	await fs.writeFile(buildPath, buildPackageData);
-
-	return;
-};
-
-const files = ['README.md', 'CONTRIBUTING.md', 'LICENSE'];
-
-Promise.all(files.map(file => copyFile(file))).then(() => createPackage());
+Promise.all(files.map(file => copyFile(file)));
