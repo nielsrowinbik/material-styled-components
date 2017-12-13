@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
-import { darken, transparentize } from 'polished';
+import { darken, readableColor, transparentize } from 'polished';
 import styled, { css } from 'styled-components';
-import elevation, { elevationTransition } from '../mixins/elevation';
+import elevation from '../mixins/elevation';
 import { font } from '../mixins/typography';
 import withRipple from '../hoc/withRipple';
-import colors from '../colors/all';
 import React from 'react';
 
 const round = css`
 	border-radius: 50%;
-	width: ${({ raised, mini }) => raised ? mini ? 40 : 56 : mini ? 40 : 48 }px;
-	height: ${({ raised, mini }) => raised ? mini ? 40 : 56 : mini ? 40 : 48 }px;
+	width: ${({ height: width }) => width}px;
+	height: ${({ height }) => height}px;
 	padding: 0;
 	
 	${(props) => props.raised ? raised : flat}
@@ -18,7 +17,7 @@ const round = css`
 
 const regular = css`
 	border-radius: 2px;
-	height: ${({ dense }) => dense ? 32 : 36}px;
+	height: ${({ height }) => height}px;
 	min-width: 88px;
 	padding: 0 16px;
 	letter-spacing: 0.3px;
@@ -28,38 +27,39 @@ const regular = css`
 `;
 
 const raised = css`
-	${({ round }) => round ? elevation(6) : elevation(2) };
+	background: ${({ color }) => color};
+	${({ elevationHeight }) => elevation(elevationHeight) };
 	
 	&:active {
-		${({ round }) => round ? elevation(12) : elevation(8) };
+		${({ elevationHeight }) => elevation(elevationHeight + 6) };
 	}
 
-	${({ color }) => color !== 'default' && `color: white;`}
-	background: ${({ backgroundColor }) => backgroundColor};
-
 	&:hover {
-		background: ${({ backgroundColor }) => darken(0.12, backgroundColor)};
+		background: ${({ color }) => darken(0.12, color)};
 	}
 `;
 
 const flat = css`
-	${({ color, backgroundColor }) => color !== 'default' && `color: ${backgroundColor};`}
-
 	&:hover {
-		${({ color, backgroundColor }) => color !== 'default' && `background: ${transparentize(0.12, backgroundColor)};`}
+		background: ${({ color }) => transparentize(0.12, color)};
 	}
 `;
 
-const Button = styled(({ color, raised, round, mini, dense, backgroundColor, ...props }) => <button {...props} />).attrs({
-	backgroundColor: ({ color, theme }) => color === 'default' ? '#ffffff' : color === 'primary' ? theme.primary : color === 'accent' ? theme.accent : color
+const Button = styled(({ color, dense, elevationHeight, height, mini, raised, round, ...props }) => <button {...props} />).attrs({
+	color: ({ color, theme }) => theme[color] ? theme[color] : color,
+	height: ({ dense, mini, raised, round }) => {
+		if (round) return raised ? mini ? 40 : 56 : mini ? 40 : 48;
+		return dense ? 32 : 36;
+	},
+	elevationHeight: ({ raised, round }) => raised ? round ? 6 : 2 : 0
 })`
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	border: none;
 	outline: none;
-	background: transparent;
-	color: inherit;
+	background: ${({ color }) => color};
+	color: ${({ color }) => readableColor(color)};
 	fill: currentColor;
 	text-align: center;
 	text-decoration: none;
@@ -68,7 +68,7 @@ const Button = styled(({ color, raised, round, mini, dense, backgroundColor, ...
 	vertical-align: middle;
 	user-select: none;
 	box-sizing: border-box;
-	transition: ${ elevationTransition }, background-color 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: box-shadow 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
 	&:active {
 		outline: none;
@@ -91,22 +91,17 @@ const Button = styled(({ color, raised, round, mini, dense, backgroundColor, ...
 `;
 
 Button.propTypes = {
-	color: PropTypes.oneOf([
-		'default',
-		'primary',
-		'accent',
-		...colors
-	]).isRequired,
+	color: PropTypes.string.isRequired,
+	dense: PropTypes.bool,
+	mini: PropTypes.bool,
 	raised: PropTypes.bool,
 	round: PropTypes.bool,
-	mini: PropTypes.bool,
-	dense: PropTypes.bool,
 	type: PropTypes.string
 };
 
 Button.defaultProps = {
-	type: 'button',
-	color: 'default'
+	color: '#ffffff',
+	type: 'button'
 };
 
 Button.displayName = 'Button';
